@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UIView *scrollView;
 
 @end
 
@@ -17,12 +18,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewDidAppear:(BOOL)animated {
+    
+    //[self.view setBounds:CGRectMake(0, 100, self.view.bounds.size.width, self.view.bounds.size.height)];
+    
+}
+- (IBAction)panGesture:(UIPanGestureRecognizer *)sender {
+    
+    CGPoint translationInView = [sender translationInView:self.scrollView];
+    CGPoint oldCenter = sender.view.center;
+    CGPoint newCenter = CGPointMake(oldCenter.x, oldCenter.y + translationInView.y);
+    
+    sender.view.center = newCenter;
+    [sender setTranslation:CGPointZero inView:self.scrollView];
+    
 }
 
 
